@@ -32,9 +32,6 @@ android {
 }
 
 dependencies {
-    implementation(platform(libs.findLibrary("firebase-bom").get()))
-    implementation(libs.findLibrary("firebase-crashlytics-ktx").get())
-    implementation(libs.findLibrary("firebase-analytics-ktx").get())
 
     implementation(libs.findLibrary("androidx-core-splashscreen").get())
     implementation(libs.findBundle("androidx").get())

@@ -4,8 +4,6 @@ buildscript {
     dependencies {
         classpath("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${libs.versions.detekt}")
         classpath("org.jetbrains.kotlin:kotlin-serialization:${libs.versions.kotlin}")
-        classpath(libs.google.services)
-        classpath(libs.firebase.crashlytics)
     }
 }
 

@@ -30,10 +30,7 @@ test-core-ktx = "1.6.1"
 mockk = "1.14.4"
 camposer = "0.4.4"
 spotless = "7.1.0"
-google-services = "4.4.3"
 google-review = "2.0.2"
-firebase-bom = "32.1.0"
-firebase-crashlytics = "3.0.4"
 
 [libraries]
 
@@ -85,14 +82,9 @@ mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 camposer = { module = "io.github.ujizin:camposer", version.ref = "camposer" }
 
-firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
-firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx" }
-firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx" }
 
 # Classpath
-google-services = { module = "com.google.gms:google-services", version.ref = "google-services" }
 google-review = { module = "com.google.android.play:review-ktx", version.ref = "google-review" }
-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebase-crashlytics" }
 
 # Debug Implementations
 
@@ -161,5 +153,3 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
-google-services = { id = "com.google.gms.google-services" }
-google-crashlytics = { id = "com.google.firebase.crashlytics" }

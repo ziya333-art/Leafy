@@ -1,7 +1,5 @@
 plugins {
     id("com.ujizin.android-application")
-    id(libs.plugins.google.services.get().pluginId)
-    id(libs.plugins.google.crashlytics.get().pluginId)
 }
 
 android { namespace = "com.ujizin.leafy" }

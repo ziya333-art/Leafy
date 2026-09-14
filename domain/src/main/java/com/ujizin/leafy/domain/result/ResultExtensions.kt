@@ -1,6 +1,5 @@
 package com.ujizin.leafy.domain.result
 
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filterNot
@@ -19,7 +18,6 @@ fun <T> Flow<T>.asResult(): Flow<Result<T>> = map<T, Result<T>> {
 fun <T : Any> Flow<Result<T?>>.mapResult(): Flow<T> = mapNotNull { result ->
     when (result) {
         is Result.Error -> {
-            result.exception?.let(FirebaseCrashlytics.getInstance()::recordException)
             null
         }
 

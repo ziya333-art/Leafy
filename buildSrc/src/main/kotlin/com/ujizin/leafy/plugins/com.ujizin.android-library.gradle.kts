@@ -27,9 +27,6 @@ dependencies {
         implementation(project(":domain"))
     }
 
-    implementation(platform(libs.findLibrary("firebase-bom").get()))
-    implementation(libs.findLibrary("firebase-crashlytics-ktx").get())
-    implementation(libs.findLibrary("firebase-analytics-ktx").get())
 
 
     implementation(libs.findLibrary("hilt").get())
