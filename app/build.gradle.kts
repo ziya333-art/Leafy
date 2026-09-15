@@ -19,6 +19,7 @@ dependencies {
 
     implementation(projects.domain)
     implementation(projects.core.local)
+implementation(projects.core.weather)
 
     implementation(projects.core.ui)
     implementation(projects.core.themes)
