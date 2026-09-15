@@ -21,8 +21,10 @@ import com.ujizin.leafy.core.ui.extensions.currentDay
 import com.ujizin.leafy.core.ui.extensions.plus
 import com.ujizin.leafy.core.ui.props.RequestCode
 import com.ujizin.leafy.domain.dispatcher.IoDispatcher
+import com.ujizin.leafy.domain.model.AdjustmentDecision
 import com.ujizin.leafy.domain.result.filterNotLoading
 import com.ujizin.leafy.domain.result.getOrNull
+import com.ujizin.leafy.domain.usecase.alarm.weathercheck.CheckAlarmWeatherUseCase
 import com.ujizin.leafy.domain.usecase.plant.load.LoadPlantByAlarmIdUseCase
 import com.ujizin.leafy.features.alarm.R
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,6 +56,9 @@ class AlarmService : Service() {
     @Inject
     lateinit var schedulePlantAlarmUseCase: SchedulePlantAlarmUseCase
 
+    @Inject
+    lateinit var checkAlarmWeatherUseCase: CheckAlarmWeatherUseCase
+
     private val ioScope by lazy { CoroutineScope(ioDispatcher) }
 
     private val stopAlarmPendingIntent: PendingIntent
@@ -83,7 +88,10 @@ class AlarmService : Service() {
             actualDay = currentDay + 1,
         ),
         loadPlantUseCaseByAlarmId(intent.alarmId).filterNotLoading(),
-    ) { _, plantResult ->
+        checkAlarmWeatherUseCase(intent.alarmId).filterNotLoading(),
+    ) { _, plantResult, weatherResult ->
+        val decision = weatherResult.getOrNull()?.decision ?: AdjustmentDecision.KEEP
+        if (decision == AdjustmentDecision.SKIP_RAIN) return@combine
         val plant = plantResult.getOrNull()
         withContext(Dispatchers.Main) {
             startAlarmNotification(intent, plant?.title, plant?.description)

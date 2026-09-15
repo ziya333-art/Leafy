@@ -5,6 +5,7 @@ package com.ujizin.leafy.core.weather
 import com.openmeteo.api.Forecast
 import com.openmeteo.api.GeocodingSearch
 import com.ujizin.leafy.domain.model.DailyWeather
+import javax.inject.Inject
 import com.ujizin.leafy.domain.model.GardenLocation
 import com.ujizin.leafy.domain.repository.WeatherRepository
 import java.text.SimpleDateFormat
@@ -18,7 +19,7 @@ import kotlinx.coroutines.flow.flowOn
  * Weather Repository implementation backed by Open-Meteo,
  * the free, keyless, open-source weather API.
  * */
-class WeatherRepositoryImpl : WeatherRepository {
+class WeatherRepositoryImpl @Inject constructor() : WeatherRepository {
 
     override fun getForecast(
         location: GardenLocation,
