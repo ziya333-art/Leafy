@@ -1,8 +1,38 @@
+import java.util.Properties
+
 plugins {
     id("com.ujizin.android-application")
 }
 
-android { namespace = "com.ujizin.leafy" }
+android {
+    namespace = "com.ujizin.leafy"
+
+    defaultConfig {
+        versionCode = 1
+        versionName = "1.0.0"
+    }
+
+    signingConfigs {
+        getByName("release") {
+            val keystorePropertiesFile = rootProject.file("keystore.properties")
+            if (keystorePropertiesFile.exists()) {
+                val keystoreProperties = Properties().apply {
+                    load(keystorePropertiesFile.inputStream())
+                }
+                storeFile = rootProject.file(keystoreProperties.getProperty("storeFile"))
+                storePassword = keystoreProperties.getProperty("storePassword")
+                keyAlias = keystoreProperties.getProperty("keyAlias")
+                keyPassword = keystoreProperties.getProperty("keyPassword")
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.getByName("release")
+        }
+    }
+}
 
 dependencies {
     implementation(libs.androidx.core.splashscreen)
@@ -19,7 +49,7 @@ dependencies {
 
     implementation(projects.domain)
     implementation(projects.core.local)
-implementation(projects.core.weather)
+    implementation(projects.core.weather)
 
     implementation(projects.core.ui)
     implementation(projects.core.themes)
