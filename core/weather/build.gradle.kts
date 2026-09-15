@@ -10,4 +10,5 @@ dependencies {
     implementation(libs.open.meteo)
 
     implementation(projects.domain)
+    implementation(projects.core.local)
 }

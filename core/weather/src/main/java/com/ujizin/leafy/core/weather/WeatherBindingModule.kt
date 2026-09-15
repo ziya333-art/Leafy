@@ -1,5 +1,6 @@
 package com.ujizin.leafy.core.weather
 
+import com.ujizin.leafy.domain.repository.GardenLocationRepository
 import com.ujizin.leafy.domain.repository.WeatherRepository
 import dagger.Binds
 import dagger.Module
@@ -19,4 +20,10 @@ abstract class WeatherBindingModule {
     abstract fun bindWeatherRepository(
         impl: WeatherRepositoryImpl,
     ): WeatherRepository
+
+    @Binds
+    @Singleton
+    internal abstract fun bindGardenLocationRepository(
+        impl: GardenLocationRepositoryImpl,
+    ): GardenLocationRepository
 }
