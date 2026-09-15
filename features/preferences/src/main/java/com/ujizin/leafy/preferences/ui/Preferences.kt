@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -19,6 +21,7 @@ import com.ujizin.leafy.core.ui.components.selector.ButtonRow
 import com.ujizin.leafy.core.ui.extensions.paddingScreen
 import com.ujizin.leafy.core.ui.extensions.versionName
 import com.ujizin.leafy.core.ui.local.LocalUser
+import com.ujizin.leafy.domain.model.GardenLocation
 import com.ujizin.leafy.domain.model.Language
 import com.ujizin.leafy.domain.model.Theme
 import com.ujizin.leafy.domain.model.User
@@ -38,8 +41,13 @@ internal fun PreferencesRoute(
         val user = LocalUser.current
 
         Spacer(Modifier.height(16.dp))
+        val gardenLocation by viewModel.gardenLocation.collectAsState()
+        val locationSearchFailed by viewModel.locationSearchFailed.collectAsState()
         PreferencesContent(
             user = user,
+            gardenLocation = gardenLocation,
+            locationSearchFailed = locationSearchFailed,
+            onLocationSave = viewModel::saveLocation,
             onNicknameChanged = { nickname -> viewModel.update(user.update(nickname = nickname)) },
             onThemeChanged = { theme -> viewModel.update(user.update(theme = theme)) },
             onLanguageChanged = { language -> viewModel.update(user.update(language = language)) },
@@ -54,6 +62,9 @@ internal fun PreferencesRoute(
 internal fun PreferencesContent(
     modifier: Modifier = Modifier,
     user: User,
+    gardenLocation: GardenLocation?,
+    locationSearchFailed: Boolean,
+    onLocationSave: (String) -> Unit,
     onNicknameChanged: (String) -> Unit,
     onThemeChanged: (Theme) -> Unit,
     onLanguageChanged: (Language) -> Unit,
@@ -108,5 +119,19 @@ internal fun PreferencesContent(
                 onDynamicColorChanged = onDynamicColorChanged,
             )
         }
+
+        HorizontalDivider(
+            modifier = Modifier
+                .fillMaxWidth()
+                .paddingScreen(vertical = 16.dp),
+        )
+        GardenLocationRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .paddingScreen(),
+            location = gardenLocation,
+            searchFailed = locationSearchFailed,
+            onLocationSave = onLocationSave,
+        )
     }
 }
