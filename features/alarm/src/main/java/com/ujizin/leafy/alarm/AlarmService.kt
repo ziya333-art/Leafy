@@ -91,8 +91,17 @@ class AlarmService : Service() {
         checkAlarmWeatherUseCase(intent.alarmId).filterNotLoading(),
     ) { _, plantResult, weatherResult ->
         val decision = weatherResult.getOrNull()?.decision ?: AdjustmentDecision.KEEP
-        if (decision == AdjustmentDecision.SKIP_RAIN) return@combine
         val plant = plantResult.getOrNull()
+        if (decision == AdjustmentDecision.SKIP_RAIN) {
+            withContext(Dispatchers.Main) {
+                startAlarmNotification(
+                    intent,
+                    plant?.title,
+                    "Rain expected today — Leafy skipped this watering. Water manually if this plant is sheltered indoors.",
+                )
+            }
+            return@combine
+        }
         withContext(Dispatchers.Main) {
             startAlarmNotification(intent, plant?.title, plant?.description)
         }

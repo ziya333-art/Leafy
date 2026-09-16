@@ -24,3 +24,4 @@ app/**/google-services.json
 
 .kotlin
 buildSrc/.kotlinkeystore.properties
+keystore.properties

@@ -24,6 +24,7 @@ import com.ujizin.leafy.core.ui.components.image.Icons
 import com.ujizin.leafy.core.ui.extensions.OnClick
 import com.ujizin.leafy.core.ui.extensions.capitalize
 import com.ujizin.leafy.core.ui.extensions.share
+import com.ujizin.leafy.domain.model.DailyWeather
 import com.ujizin.leafy.domain.model.Plant
 import com.ujizin.leafy.features.home.R
 
@@ -31,6 +32,7 @@ import com.ujizin.leafy.features.home.R
 internal fun HomeSection(
     nickname: String,
     plants: List<Plant>,
+    weather: DailyWeather? = null,
     onEmptyPlantClick: OnClick,
     onSearchClick: OnClick,
     onDrawerClick: OnClick,
@@ -62,6 +64,9 @@ internal fun HomeSection(
                     )
                 },
             )
+        }
+        weather?.let {
+            item { WeatherChip(weather = it) }
         }
         when {
             plants.isEmpty() -> item {

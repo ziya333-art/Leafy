@@ -59,6 +59,7 @@ private fun HomeContent(
             is HomeUIState.Success -> HomeSection(
                 nickname = nickname,
                 plants = result.plants,
+                weather = result.weather,
                 onEmptyPlantClick = onTakePictureClick,
                 onSearchClick = onSearchClick,
                 onDrawerClick = onDrawerClick,
