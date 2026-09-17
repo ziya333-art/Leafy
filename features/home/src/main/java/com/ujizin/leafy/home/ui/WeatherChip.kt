@@ -31,7 +31,7 @@ internal fun WeatherChip(
             Text(
                 text = displayTemperature(weather.maxTemperatureCelsius) + " high \u2014 " +
                     displayTemperature(weather.minTemperatureCelsius) + " low \u2014 " +
-                    weather.precipitationMillimeters.toInt() + "mm rain",
+                    displayRain(weather.precipitationMillimeters) + " rain",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -59,5 +59,14 @@ private fun displayTemperature(celsius: Double): String {
         ((celsius * 9 / 5) + 32).toInt().toString() + "\u00b0F"
     } else {
         celsius.toInt().toString() + "\u00b0C"
+    }
+}
+
+private fun displayRain(millimeters: Double): String {
+    val useImperial = Locale.getDefault().country.equals("US", ignoreCase = true)
+    return if (useImperial) {
+        String.format(Locale.US, "%.1f", millimeters / 25.4) + "in"
+    } else {
+        millimeters.toInt().toString() + "mm"
     }
 }

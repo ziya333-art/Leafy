@@ -35,6 +35,7 @@ internal fun HomeSection(
     plants: List<Plant>,
     weather: DailyWeather? = null,
     onGuideClick: OnClick = {},
+    onDoctorClick: OnClick = {},
     onEmptyPlantClick: OnClick,
     onSearchClick: OnClick,
     onDrawerClick: OnClick,
@@ -59,6 +60,12 @@ internal fun HomeSection(
                     )
                 },
                 trailingIcon = {
+                    androidx.compose.material3.TextButton(onClick = onDoctorClick) {
+                        androidx.compose.material3.Text(
+                            "\uD83E\uDE7A",
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                    }
                     androidx.compose.material3.TextButton(onClick = onGuideClick) {
                         androidx.compose.material3.Text(
                             "\uD83C\uDF3F",

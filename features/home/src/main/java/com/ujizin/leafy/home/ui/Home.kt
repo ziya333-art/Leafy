@@ -33,6 +33,7 @@ fun HomeRoute(
     LaunchedEffect(viewModel) { viewModel.loadHome() }
 
     var showGuide by remember { mutableStateOf(false) }
+    var showDoctor by remember { mutableStateOf(false) }
 
     HomeContent(
         modifier = Modifier.fillMaxSize(),
@@ -43,10 +44,15 @@ fun HomeRoute(
         onDrawerClick = onDrawerClick,
         onPlantClick = onPlantClick,
         onGuideClick = { showGuide = true },
+        onDoctorClick = { showDoctor = true },
     )
 
     if (showGuide) {
         PlantGuide(onDismiss = { showGuide = false })
+    }
+
+    if (showDoctor) {
+        PlantDoctor(onDismiss = { showDoctor = false })
     }
 }
 
@@ -60,6 +66,7 @@ private fun HomeContent(
     modifier: Modifier = Modifier,
     onPlantClick: (Long) -> Unit,
     onGuideClick: OnClick = {},
+    onDoctorClick: OnClick = {},
 ) {
     Box(
         modifier = modifier,
@@ -76,6 +83,7 @@ private fun HomeContent(
                 onDrawerClick = onDrawerClick,
                 onPlantClick = onPlantClick,
                 onGuideClick = onGuideClick,
+                onDoctorClick = onDoctorClick,
             )
 
             is HomeUIState.Error -> {}
@@ -96,6 +104,7 @@ private fun HomeContentPreview() {
                 onDrawerClick = {},
                 onPlantClick = {},
                 onGuideClick = {},
+                onDoctorClick = {},
             )
         }
     }
