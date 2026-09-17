@@ -5,6 +5,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -70,10 +73,12 @@ internal fun PreferencesContent(
     onLanguageChanged: (Language) -> Unit,
     onDynamicColorChanged: (Boolean) -> Unit,
 ) {
-    Column(modifier) {
+    Column(
+        modifier = modifier
+            .imePadding()
+            .verticalScroll(rememberScrollState()),
+    ) {
         val isDynamicColorAvailable = remember(DynamicColors::isDynamicColorAvailable)
-        val googleReviewState = rememberGoogleReview()
-        val context = LocalContext.current
         UserSelector(
             modifier = Modifier
                 .fillMaxWidth()
@@ -94,15 +99,6 @@ internal fun PreferencesContent(
                 .paddingScreen(vertical = 16.dp),
             theme = user.settings.theme,
             onThemeChanged = onThemeChanged,
-        )
-
-        ButtonRow(
-            modifier = Modifier
-                .fillMaxWidth()
-                .paddingScreen(vertical = 16.dp),
-            title = stringResource(R.string.rate_app),
-            subTitle = context.versionName?.let { stringResource(R.string.version, it) },
-            onClick = { googleReviewState.launch(context) },
         )
 
         if (isDynamicColorAvailable) {

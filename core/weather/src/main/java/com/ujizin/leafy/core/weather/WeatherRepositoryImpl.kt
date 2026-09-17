@@ -59,11 +59,19 @@ class WeatherRepositoryImpl @Inject constructor() : WeatherRepository {
     override fun geocode(
         city: String,
     ): Flow<GardenLocation> = flow {
-        val response = GeocodingSearch(name = city) {
-            count = 10
-            language = Locale.getDefault().language
-        }.getOrThrow()
+        val response = try {
+            GeocodingSearch(name = city) {
+                count = 10
+                language = Locale.getDefault().language
+            }.getOrThrow()
+        } catch (e: Throwable) {
+            android.util.Log.e("LeafyGeocode", "request failed for '" + city + "'", e)
+            throw e
+        }
         val result = response.results?.firstOrNull()
+        if (result == null) {
+            android.util.Log.e("LeafyGeocode", "no results for '" + city + "'")
+        }
         requireNotNull(result) { "No geocoding result for '$city'" }
         emit(
             GardenLocation(

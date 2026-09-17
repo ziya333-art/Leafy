@@ -6,6 +6,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -29,6 +32,8 @@ fun HomeRoute(
 
     LaunchedEffect(viewModel) { viewModel.loadHome() }
 
+    var showGuide by remember { mutableStateOf(false) }
+
     HomeContent(
         modifier = Modifier.fillMaxSize(),
         state = state,
@@ -37,7 +42,12 @@ fun HomeRoute(
         onSearchClick = onSearchClick,
         onDrawerClick = onDrawerClick,
         onPlantClick = onPlantClick,
+        onGuideClick = { showGuide = true },
     )
+
+    if (showGuide) {
+        PlantGuide(onDismiss = { showGuide = false })
+    }
 }
 
 @Composable
@@ -49,6 +59,7 @@ private fun HomeContent(
     onDrawerClick: OnClick,
     modifier: Modifier = Modifier,
     onPlantClick: (Long) -> Unit,
+    onGuideClick: OnClick = {},
 ) {
     Box(
         modifier = modifier,
@@ -64,6 +75,7 @@ private fun HomeContent(
                 onSearchClick = onSearchClick,
                 onDrawerClick = onDrawerClick,
                 onPlantClick = onPlantClick,
+                onGuideClick = onGuideClick,
             )
 
             is HomeUIState.Error -> {}
@@ -83,6 +95,7 @@ private fun HomeContentPreview() {
                 onSearchClick = {},
                 onDrawerClick = {},
                 onPlantClick = {},
+                onGuideClick = {},
             )
         }
     }

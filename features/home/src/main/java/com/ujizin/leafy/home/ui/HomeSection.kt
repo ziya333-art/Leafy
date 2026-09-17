@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,6 +34,7 @@ internal fun HomeSection(
     nickname: String,
     plants: List<Plant>,
     weather: DailyWeather? = null,
+    onGuideClick: OnClick = {},
     onEmptyPlantClick: OnClick,
     onSearchClick: OnClick,
     onDrawerClick: OnClick,
@@ -57,6 +59,12 @@ internal fun HomeSection(
                     )
                 },
                 trailingIcon = {
+                    androidx.compose.material3.TextButton(onClick = onGuideClick) {
+                        androidx.compose.material3.Text(
+                            "\uD83C\uDF3F",
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                    }
                     AnimatedButtonIcon(
                         icon = Icons.Magnifier,
                         animation = Animation.SlideToStart,
