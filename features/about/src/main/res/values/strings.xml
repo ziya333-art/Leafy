@@ -2,6 +2,6 @@
 <resources>
     <string name="about">about</string>
     <string name="about_button">visit project on GitHub</string>
-    <string name="about_project_url" translatable="false">https://github.com/ujizin/CameraReminder</string>
-    <string name="about_description">The project was created to stay updated on Android development. If you are an Android developer, please feel free to access or contribute to the open-source project!</string>
+    <string name="about_project_url" translatable="false">https://github.com/ziya333-art/Leafy</string>
+    <string name="about_description">Leafy cares for your plants: weather-aware watering reminders and a guide to 9,143 species, offline and free. Based on the open-source Leafy (CameraReminder) project by ujizin. No accounts, no tracking, no GPS. Plant data: Permapeople.org (CC BY-SA 4.0). Weather: Open-Meteo.com.</string>
 </resources>
